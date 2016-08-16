@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html land="en">
+<head>
+	<title>Cyber Security Studying</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <link rel="icon" href="fav.ico">
+	<style>
+		html, body {
+			margin: 0px;
+		}
+		pre#mikrotik_expanded, pre#linux_expanded, pre#networking_expanded, pre#msf_expanded, pre#spoofing_expanded, pre#sniffing_expanded {
+			display: none
+		}
+		main {
+			background: #300a24;
+			height: 100vh;
+			overflow: scroll;
+		}
+		pre {
+			color: white;
+			font-family: 'Ubuntu', sans-serif;
+			line-height: 1.5;
+		}
+		pre::selection {
+			background: #10A796;
+		}
+		pre::-moz-selection {
+			background: #10A796;
+		}
+		nav {
+			box-shadow: 0px 1px 10px 1px
+		}
+		nav pre {
+			display: inline-block;
+			margin-left: 50px;
+			line-height: 1.1;
+			cursor: pointer;
+		}
+		nav hr {
+			color: black
+		}
+		.copy {
+			color: white;
+			font-family: 'Ubuntu', sans-serif;
+			text-align: center;
+			font-size: 12px		
+		}
+	</style>
+</head>
+<body>
+<main>
+<nav>
+	<pre id="wifi">
+ ----------------
+| 1. wifi attacks 
+ ----------------
+	</pre>
+
+	<pre id="mikrotik">
+ ---------------------
+| 2. Mikrotik attacks 
+ ---------------------
+	</pre>
+
+	<pre id="linux">
+ -----------------
+| 3. Linux Basics 
+ -----------------
+	</pre>
+
+	<pre id="networking">
+ ----------------------
+| 4. Networking Basics 
+ ----------------------
+	</pre>
+
+	<pre id="msf">
+ -------------------------
+| 5. Metasploit Framework 
+ -------------------------
+	</pre>
+
+	<pre id="spoofing">
+ -------------
+| 6. Spoofing 
+ -------------
+	</pre>
+
+	<pre id="sniffing">
+ -------------
+| 7. Sniffing 
+ -------------
+	</pre>
+</nav>
+<section id="container">
+<pre id="wifi_expanded">
+ ----------------
+| 1. wifi attacks 
+ ----------------
+
+  => Tools:
+ --------------
+		A. Wifite
+			a1. uses Aircrack to scan networks and reaver to dumb the WPS security flaw
+			a2. what is the "handshake"?
+				A data capture or handshake is a captured password when two devices talk wirelessly. 
+				The data capture will be stored in a file in a computer. 
+				It still will be encrypted and need to be cracked which is when a dictionary will be used to guess the password.
+				This is a two step process capturing the data file being first.
+
+		B. Fern
+			b1. regular brute force attack
+			b2. wps brute force attack
+			b3. we use 'crunch' or 'cupp' for the wordlist
+
+		C. Cowpatty 
+			In Cowpatty We use dictionary attack on a packet capture file (handshake) we need:
+				c1. a word list
+				c2. handshake file of the network you wanna hack
+				c3. network SSID
+				c4. cowpatty tool
+
+		D. WifiPhisher
+			d1. Wifiphisher tries to jam all the target access point’s wifi devices continuously by sending deauth packets to the client from the access point.
+			d2. It starts generating fake access points
+			d3. Now, this tool creates a rogue wireless access point that is modeled on the target by setting a NAT/DHCP server and forwards the right ports.
+			d4. Consequently, because of the jamming, clients will start connecting to the rogue access point. After this phase, the victim is Mitimed.
+			d5. Victim is being served a realistic router config-looking page where the Wifiphisher tool employs a minimal web server that responds to HTTP & HTTPS requests.
+			As soon as the victim requests a page from the Internet, 
+			wifiphisher responds with a realistic fake page that asks for WPA password confirmation due to a router firmware upgrade.
+
+  => Standards:
+ ---------------------
+ 		• SSID (Service Set Identifier):
+ 			An SSID is the name of a wireless local area network (WLAN). SSID is also known as ESSID (Extended Service Set Identifier).
+
+ 		• BSSID (Basic Service Set Identifier):
+ 			A BSSID is the MAC Address (Media Access Control) or Physical Address of the Wireless Access Point or the Wireles Router. 
+ 			This is a unique 48 bit key provided by the manufacturer of the device. It can be in the form of Hexadecimal
+			i.e. 0-9 , A-F.
+			E.g. 00:A1:CB:12:54:9F
+
+		• Beacons:
+			These are the Wireless Packets which are broadcasted to maintain the connectivity with the Wireless Access Point and Client systems. 
+			The Wireless Access point broadcasts beacon frames from time to time to check connectivity with the systems.
+
+		• Channel:
+			It is the frequency at with the Wireless Signal travels through air.
+		
+		• Data Packets:
+			These are the packets which sent and received for the transfer of data between Wireless Access Point and Client systems. 
+			All the data communicated between two Computers travels in the form of Data Packets.
+		
+
+</pre>
+<pre id="mikrotik_expanded">
+ ---------------------
+| 2. Mikrotik attacks 
+ ---------------------
+
+ 	• first we have to connect to the network and have a local Ip Address form the DHCP
+
+ 	• now we need to know the ip address of the Mikrotik server
+ 		- simply use the command 'ping www.login_page_test.com'
+ 		- the ip address will appear
+
+ 	• after that we need to scan the connected hosts there's a lot of tools to do that for example "netdiscover"
+ 		-open the terminal
+ 		-type 'netdiscover -f -r server_ip_address/24'
+ 		-example: 'netdiscover -f -r 10.1.1.1/24'
+
+ 	• a list of the connected devices will appear .. look for any device and copy it's MAC 
+
+ 	• now we need to change our MAC to that new MAC we've just copied to pretend as we're one of the 'already connected' device
+
+ 	• disconnect for the network and turn off your wireless card 
+ 		'ifconfig wlan0 down'
+
+ 	• change our mac using "macchanger" tool using the following command
+ 		'macchanger -m the_new_mac wlan0'
+
+ 	• now let's turn on our wireless card again
+ 		'ifconfig wlan0 up'
+
+ 	• finally connect to the network again and BOOOM your're in ;)
+
+</pre>
+<pre id="linux_expanded">
+ -----------------
+| 3. Linux Basics 
+ -----------------
+ 	“ls” 
+ 		stands for (List Directory Contents), List the contents of the folder
+
+ 	“cd” 
+ 		stands for (Change Directory), open a folder if you may
+
+ 	“ls -l” 
+ 		list the content of folder, in long listing fashion.
+
+ 	“mkdir” 
+ 		(Make directory) command create a new directory with name path.
+
+ 	“cal” 
+ 		(Calendar), it is used to displays a calendar
+
+ 	“date” 
+ 		(date), it is used to displays a date
+
+ 	“cat” 
+ 		open a file text
+
+ 	“copy” 
+ 		stands for (Copy), it copies a file from one location to another location.
+
+ 	“mv” 
+ 		command moves a file from one location to another location.
+
+ 	“pwd” 
+ 		(print working directory), prints the current working directory with full path name from terminal.
+</pre>
+
+<pre id="networking_expanded">
+ ----------------------
+| 4. Networking Basics 
+ ----------------------
+
+ 	• ip address:
+		or internet protocol address numerical label assigned to each device like pc, printer whatever .. to identify it on the network
+		=> ipv4 is an ip address as a 32-bit number.
+		=> ipv6 was written using 182 bits.
+		and it has two main componants 1. the network address    2. the host address
+
+	• subnet:
+		ex. all devices starts with IP addresses that starts with 100.100.100 
+		would be part of the same subnet Dividing the network into the same subnet is useful for both security and preformance.
+
+	• TCP: 
+		transimission control protocol
+
+	• DHCP:
+		stands for dynamic host configration protocol.
+		renews your lease automatically if your ip address's lease expires you'll be assigned to a new ip address using the same DHCP 	protocols..
+
+	• mac address:
+		media access control..
+		hardware address or physical address
+		MM:MM:MM:SS:SS:SS format
+		The first 3-bytes are ID number of the manufacturer (the company)
+		The second 3-bytes are serial number assigned by the manufacturer. (the model)
+		MAC addresses are permanently burned into hardware by hardware manufacturer, 
+		but IP addresses are assigned to the network devices by a network administrator. 
+		DHCP relies on MAC address to assign IP addresses to network devices.
+
+	• static ip:
+		If your IP address at home is static, 
+		it means that it will remain the same every time you connect.
+		Generally, a static IP address is assigned by request and for a fee by an IT administrator at work, 
+		or by you at home. Here are the advantages of a static IP address:
+			- Businesses are better suited for it than residences.
+			- It's also better for dedicated services such as mail, FTP and VPN servers.
+			- It's good for creating or hosting computer servers.
+			- It makes it easier for geolocation services to accurately assess where you are.
+</pre>
+
+<pre id="msf_expanded">
+ -------------------------
+| 5. Metasploit Framework 
+ -------------------------
+
+ ...
+
+
+
+</pre>
+
+<pre id="spoofing_expanded">
+ -------------
+| 6. Spoofing 
+ -------------
+
+ ...
+</pre>
+
+<pre id="sniffing_expanded">
+ -------------
+| 7. Sniffing 
+ -------------
+
+ ...
+</pre>
+</section>
+<p class="copy">&copy; 2016 - Hossam Samir</p>
+</main>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#wifi").click(function(){
+			$("#container pre").hide();
+	        $("#wifi_expanded").slideToggle("slow");
+	    });
+
+	    $("#mikrotik").click(function(){
+			$("#container pre").hide();
+	        $("#mikrotik_expanded").slideToggle("slow");
+	    });
+	    
+	    $("#linux").click(function(){
+			$("#container pre").hide();
+	        $("#linux_expanded").slideToggle("slow");
+	    });
+	    
+	    $("#networking").click(function(){
+			$("#container pre").hide();
+	        $("#networking_expanded").slideToggle("slow");
+	    });
+	    
+	    $("#msf").click(function(){
+			$("#container pre").hide();
+	        $("#msf_expanded").slideToggle("slow");
+	    });
+	    
+	    $("#spoofing").click(function(){
+			$("#container pre").hide();
+	        $("#spoofing_expanded").slideToggle("slow");
+	    });
+	    
+	    $("#sniffing").click(function(){
+			$("#container pre").hide();
+	        $("#sniffing_expanded").slideToggle("slow");
+	    });
+
+	});
+</script>
+</body>
+</html>
